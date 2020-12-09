@@ -8,26 +8,26 @@ const EditSongModal = (props) => {
     <Modal open={props.open}>
       <Header>Edit Song</Header>
       <Modal.Content>
-        <Form onSubmit={props.closeAndEdit}>
-          <Label>Name:</Label>
+        <Form onSubmit={props.closeAndEdit}>   
+          <Label>Title:</Label>
           <Form.Input
             type="text"
-            name="name"
-            value={props.songToEdit.name}
+            name="title"
+            value={props.songToEdit.title}
             onChange={props.handleEditChange}
           />
-          <Label>Breed:</Label>
+          <Label>Artist:</Label>
           <Form.Input
             type="text"
-            name="breed"
-            value={props.songToEdit.breed}
+            name="artist"
+            value={props.songToEdit.artist}
             onChange={props.handleEditChange}
           />
-          <Label>Owner:</Label>
+          <Label>Album:</Label>
           <Form.Input
             type="text"
-            name="owner"
-            value={props.songToEdit.owner}
+            name="album"
+            value={props.songToEdit.album}
             onChange={props.handleEditChange}
           />
           <Modal.Actions>

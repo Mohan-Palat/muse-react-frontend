@@ -3,10 +3,7 @@ import axios from 'axios';
 import SongList from './SongList';
 import CreateSongForm from './CreateSongForm';
 import { Grid } from 'semantic-ui-react';
-
-title = CharField()
-artist = CharField()
-album = CharField()
+import EditSongModal from './EditSongModal';
 
 class SongContainer extends Component {
   constructor(props) {
@@ -125,12 +122,12 @@ class SongContainer extends Component {
       <Grid columns={2} divided textAlign='center' style={{ height: '100%' }} verticalAlign='top' stackable>
         <Grid.Row>
           <Grid.Column>
-            <SongList songs={this.state.dogs} deleteSong={this.deleteSong} openAndEdit={this.openAndEdit}/>
+            <SongList songs={this.state.songs} deleteSong={this.deleteSong} openAndEdit={this.openAndEdit}/>
           </Grid.Column>
           <Grid.Column>
            <CreateSongForm addSong={this.addSong}/>
           </Grid.Column>
-          <EditSongModal handleEditChange={this.handleEditChange} open={this.state.showEditModal} songToEdit={this.state.dogToEdit} closeAndEdit={this.closeAndEdit}/>
+          <EditSongModal handleEditChange={this.handleEditChange} open={this.state.showEditModal} songToEdit={this.state.songToEdit} closeAndEdit={this.closeAndEdit}/>
         </Grid.Row>
       </Grid>
       )
