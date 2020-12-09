@@ -4,12 +4,22 @@ import SongList from './SongList';
 import CreateSongForm from './CreateSongForm';
 import { Grid } from 'semantic-ui-react';
 
+title = CharField()
+artist = CharField()
+album = CharField()
+
 class SongContainer extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      songs: [],
+        songs: [],
+        songToEdit: {
+          title: '',
+          artist: '',
+          album: '',
+          id: ''
+        },
+        showEditModal: false
     };
   }
   componentDidMount() {
