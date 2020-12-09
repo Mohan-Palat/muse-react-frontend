@@ -77,8 +77,7 @@ class SongContainer extends Component {
   };
 
   openAndEdit = (songFromTheList) => {
-    console.log(songFromTheList, ' songToEdit  ');
-  
+    console.log(songFromTheList, ' songToEdit  ');  
     this.setState({
       showEditModal: true,
       songToEdit: {
@@ -87,16 +86,51 @@ class SongContainer extends Component {
     });
   };
 
+  handleEditChange = (e) => {
+    this.setState({
+      songToEdit: {
+        ...this.state.songToEdit,
+        [e.currentTarget.name]: e.currentTarget.value,
+      },
+    });
+  };
+
+  closeAndEdit = async (e) => {
+    e.preventDefault();
+    try {
+      const editResponse = await axios.put(
+        process.env.REACT_APP_FLASK_API_URL +
+          '/api/v1/songs/' +
+          this.state.songToEdit.id,
+        this.state.songToEdit
+      );
+      console.log(editResponse, ' parsed edit');
+      const newSongArrayWithEdit = this.state.songs.map((song) => {
+        if (song.id === editResponse.data.data.id) {
+          song = editResponse.data.data;
+        }
+        return song;
+      });  
+      this.setState({
+        showEditModal: false,
+        songs: newSongArrayWithEdit,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render(){
     return (
       <Grid columns={2} divided textAlign='center' style={{ height: '100%' }} verticalAlign='top' stackable>
         <Grid.Row>
           <Grid.Column>
-            <SongList songs={this.state.songs} deleteSong={this.deleteSong} openAndEdit={this.openAndEdit}/>
+            <SongList songs={this.state.dogs} deleteSong={this.deleteSong} openAndEdit={this.openAndEdit}/>
           </Grid.Column>
           <Grid.Column>
            <CreateSongForm addSong={this.addSong}/>
           </Grid.Column>
+          <EditSongModal handleEditChange={this.handleEditChange} open={this.state.showEditModal} songToEdit={this.state.dogToEdit} closeAndEdit={this.closeAndEdit}/>
         </Grid.Row>
       </Grid>
       )
